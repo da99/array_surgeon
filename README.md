@@ -10,7 +10,7 @@ Usage
 
     shell> npm install array_knife
 
-    arr_knife = require 'array_knife'
+    knife = require 'array_knife'
 
     hay = [ 1, 2, 3, 4 ]
 
@@ -19,10 +19,10 @@ Usage
       props.is_last
       (val is 2) or (val is 3)
 
-    arr_knife.remove arr, finder
+    knife.remove hay, finder
     # ==> [ 1,  4 ]
    
-    arr_knife.replace arr, finder, "missing"
+    knife.replace hay, finder, "missing"
     # ==> [ 1, "missing", 4 ]
 
 

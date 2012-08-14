@@ -7,7 +7,7 @@
     "test": "mocha --compilers coffee:coffee-script"
   },
   "dependencies": {
-    "jQuery": "*"
+    "underscore": "*"
   },
   "repository": {
     "type": "git",
