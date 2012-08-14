@@ -6,6 +6,9 @@
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script"
   },
+  "dependencies": {
+    "jQuery": "*"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/da99/array_knife"
