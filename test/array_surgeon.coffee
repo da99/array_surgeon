@@ -59,6 +59,21 @@ describe "array_knife", () ->
       results = hay.knife 'remove', finder
       assert.deepEqual results, [ 1,  4, 1, 4 ]
      
+    it "accepts a callback for deciding if slice should be removed", () ->
+
+      knife = require 'array_knife'
+
+      hay = [ 1, 2, 3, 4, 1, 2  ]
+
+      finder = ( val, props ) ->
+        (val is 2) or (val is 3)
+
+      yes_or_no = (slice) ->
+        slice.length > 1
+        
+      results = hay.knife 'remove', finder, yes_or_no
+      assert.deepEqual results, [ 1,  4, 1, 2 ]
+      
   describe '.get_seqs', () ->
     it 'returns a sequence of array indexes of elements that match callback', () ->
       knife = require 'array_knife'

@@ -1,8 +1,8 @@
 {
-  "name": "array_knife",
+  "name": "array_surgeon",
   "version": "0.0.1",
   "description": "Find a slice using callbacks and remove or replace it.",
-  "main": "lib/array_knife.js",
+  "main": "lib/array_surgeon.js",
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script"
   },
@@ -11,11 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/da99/array_knife"
+    "url": "https://github.com/da99/array_surgeon"
   },
   "keywords": [
     "array",
-    "knife"
+    "surgeon"
   ],
   "author": "da99",
   "license": "BSD"

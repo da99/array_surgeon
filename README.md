@@ -1,5 +1,5 @@
 
-array\_knife
+array\_surgeon
 =============
 
 Find a consecutive group of elements in an array and remove or replace them.
@@ -8,9 +8,9 @@ Find a consecutive group of elements in an array and remove or replace them.
 Usage
 ====
 
-    shell> npm install array_knife
+    shell> npm install array_surgeon
 
-    knife = require 'array_knife'
+    surgeon = require 'array_surgeon'
 
     hay = [ 1, 2, 3, 4 ]
 
@@ -19,10 +19,10 @@ Usage
       props.is_last
       (val is 2) or (val is 3)
 
-    knife.remove hay, finder
+    surgeon.remove hay, finder
     # ==> [ 1,  4 ]
    
-    knife.replace hay, finder, "missing"
+    surgeon.replace hay, finder, "missing"
     # ==> [ 1, "missing", 4 ]
 
 
