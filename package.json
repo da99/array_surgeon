@@ -1,6 +1,6 @@
 {
   "name": "array_surgeon",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Find a slice using callbacks and remove or replace it.",
   "main": "lib/array_surgeon.js",
   "scripts": {
