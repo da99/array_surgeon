@@ -7,7 +7,19 @@ surgeon = require "array_surgeon"
 describe "array_surgeon", () ->
 
   describe ".replace_sequences", () ->
+    
     it "replaces elements", () ->
+
+      surgeon = require 'array_surgeon'
+
+      hay = [ 1, 2, 3, 4 ]
+
+      finders = [ 2, 3 ]
+
+      results = hay.surgeon 'replace_sequences', finders, "missing"
+      assert.deepEqual results, [ 1, "missing",  4 ]
+    
+    it "replaces elements using functions for comparison", () ->
 
       surgeon = require 'array_surgeon'
 
@@ -22,6 +34,7 @@ describe "array_surgeon", () ->
 
       results = hay.surgeon 'replace_sequences', finders, "missing"
       assert.deepEqual results, [ 1, "missing",  4 ]
+
 
     it "replaces elements with return of callback", () ->
 

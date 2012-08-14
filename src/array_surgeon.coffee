@@ -25,7 +25,10 @@ exports.replace_sequences = replace_sequences = (raw_arr, finders, replace) ->
     if slice.length == finders.length
       for f, fi in finders
         ele = slice[fi]
-        is_seq = f(ele)
+        is_seq = if typeof(f) is 'function'
+          f(ele)
+        else
+          ele is f
         break if !is_seq
 
     if is_seq
