@@ -14,15 +14,16 @@ Usage
 
     hay = [ 1, 2, 3, 4 ]
 
-    finder = ( val, props ) ->
-      props.is_first
-      props.is_last
-      (val is 2) or (val is 3)
+    finders = []
+    finder.push (val, props) ->
+      val is 2
+    finder.push (val, props) ->
+      val is 3
 
-    surgeon.remove hay, finder
+    surgeon.remove hay, finders
     # ==> [ 1,  4 ]
    
-    surgeon.replace hay, finder, "missing"
+    surgeon.replace hay, finders, "missing"
     # ==> [ 1, "missing", 4 ]
 
 
