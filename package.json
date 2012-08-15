@@ -1,6 +1,6 @@
 {
   "name": "array_surgeon",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Find a sequence of values in an Array and replace/remove them.",
   "main": "lib/array_surgeon.js",
   "scripts": {
