@@ -15,10 +15,10 @@ Usage
     hay = [ 1, 2, 3, 4 ]
     
     // You can use a regular array
-    surgeon.remove hay, [ 2, 3 ]
+    surgeon(hay).remove [ 2, 3 ]
     # ==> [ 1, 4 ]
    
-    surgeon.replace hay, [ 2, 3 ], "missing"
+    surgeon(hay).replace [ 2, 3 ], "missing"
     # ==> [ 1, "missing", 4 ]
 
 
@@ -30,11 +30,22 @@ You can also use a function for comparision:
     is_3 = (val) ->
       val is 3
       
-    surgeon.remove hay, [ is_2, is_3 ]
+    surgeon(hay).remove [ is_2, is_3 ]
     # ==> [ 1,  4 ]
    
-    surgeon.replace hay, [ is_2, is_3 ], "missing"
+    surgeon(hay).replace [ is_2, is_3 ], "missing"
     # ==> [ 1, "missing", 4 ]
 
+You can also can info on the first slice that matches your slice:
 
+    surgeon(hay).describe_slice [ is_2, is_3 ]
+    
+    # ==> 
+    { 
+      start_index: 1, 
+      end_index:   3, 
+      length:      2,
+      slice:       [2, 3]
+    }
    
+  
