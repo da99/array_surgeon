@@ -47,9 +47,8 @@ class Surgeon
     @replace args...
     
   replace: (finders, replace) ->
-    raw_arr = @hay 
-    return raw_arr if raw_arr.length < finders.length
-    arr = (v for v in raw_arr)
+    return @hay if @hay.length < finders.length
+    arr = @hay
     i = -1
     l = arr.length
     while i < l
