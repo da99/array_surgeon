@@ -27,7 +27,7 @@ class Surgeon
         for f, fi in finders
           ele = slice[fi]
           is_seq = if typeof(f) is 'function'
-            f(ele)
+            f(ele, i)
           else
             ele is f
           break if !is_seq

@@ -38,6 +38,14 @@ describe "array_surgeon", () ->
         length:      2,
         slice:       [2,3]
       }
+     
+    it "passes index of element to finder function", () ->
+      i_s = []
+      func = (v, i) ->
+        i_s.push i
+        false
+      surgeon([0,2,4,6]).describe_slice [func]
+      assert.deepEqual i_s, [0,1,2,3]
       
   describe ".replace", () ->
     
