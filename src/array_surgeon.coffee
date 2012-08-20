@@ -48,15 +48,15 @@ class Surgeon
     
   replace: (finders, replace) ->
     return @hay if @hay.length < finders.length
-    arr = @hay
+    arr = @hay.slice(0)
     i = -1
     l = arr.length
     while i < l
       i += 1
       
-      meta = @describe_slice(finders, i)
+      meta = module.exports(arr).describe_slice(finders, i)
       break unless meta
-      i = meta.end_index - 2
+      i = meta.end_index - 1
       splice_args = [ meta.start_index, meta.length ]
       
       if typeof(replace) is 'function'

@@ -74,6 +74,14 @@ describe "array_surgeon", () ->
       surgeon([1,3,5,7]).replace [func], 2
       assert.deepEqual i_s, [0,1,2,3]
 
+    it "returns a new array, not altering the original", () ->
+      orig = [ 1, 2, 3, 4 ]
+      target = orig.slice(0)
+      results = surgeon(orig).replace [ is_2, is_3 ], "new"
+        
+      assert.deepEqual orig, target
+      
+
   describe ".remove", () ->
     
     it "removes elements based on callback", () ->
@@ -94,5 +102,11 @@ describe "array_surgeon", () ->
       surgeon([2,4,6,8]).remove [func]
       assert.deepEqual i_s, [0,1,2,3]
       
+    it "returns a new array, not altering the original", () ->
+      orig = [ 1, 2, 3, 4 ]
+      target = orig.slice(0)
+      results = surgeon(orig).remove [ is_2, is_3 ]
+        
+      assert.deepEqual orig, target
 
      
