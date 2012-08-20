@@ -54,28 +54,19 @@ class Surgeon
     l = arr.length
     while i < l
       i += 1
-      slice_end = finders.length + i
-      slice = arr.slice(i, slice_end)
-      is_seq = false
-      break if slice.length < finders.length
-      if slice.length == finders.length
-        for f, fi in finders
-          ele = slice[fi]
-          is_seq = if typeof(f) is 'function'
-            f(ele)
-          else
-            ele is f
-          break if !is_seq
-
-      if is_seq
-        splice_args = [ i, finders.length ]
-        if typeof(replace) is 'function'
-          splice_args.push replace(slice) 
-        else if typeof(replace) != 'undefined'
-          splice_args.push replace
-          
-        arr.splice splice_args...
-        l = arr.length
+      
+      meta = @describe_slice(finders, i)
+      break unless meta
+      i = meta.end_index - 2
+      splice_args = [ meta.start_index, meta.length ]
+      
+      if typeof(replace) is 'function'
+        splice_args.push replace(meta.slice) 
+      else if typeof(replace) != 'undefined'
+        splice_args.push replace
+        
+      arr.splice splice_args...
+      l = arr.length
 
     arr
 

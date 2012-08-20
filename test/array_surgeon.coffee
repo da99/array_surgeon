@@ -66,6 +66,13 @@ describe "array_surgeon", () ->
         
       assert.deepEqual results, [ 1, "2,3",  4 ]
       
+    it "passes index of element to finder function", () ->
+      i_s = []
+      func = (v, i) ->
+        i_s.push i
+        false
+      surgeon([1,3,5,7]).replace [func], 2
+      assert.deepEqual i_s, [0,1,2,3]
 
   describe ".remove", () ->
     
@@ -79,6 +86,13 @@ describe "array_surgeon", () ->
       results = surgeon(hay).remove [ is_2, is_3 ]
       assert.deepEqual results, [ 1,  4, 1, 4 ]
      
+    it "passes index of element to finder function", () ->
+      i_s = []
+      func = (v, i) ->
+        i_s.push i
+        false
+      surgeon([2,4,6,8]).remove [func]
+      assert.deepEqual i_s, [0,1,2,3]
       
 
      
