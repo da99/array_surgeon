@@ -59,6 +59,18 @@ describe "array_surgeon", () ->
       surgeon([0,2,4,6]).describe_slice [func_true, func_false]
       assert.deepEqual i_s, [0,1,1,2,2,3]
 
+    it "passes index/position of sequence as 3rd argument to finder", () ->
+      i_s = []
+      func_true = (v, i, j) ->
+        i_s.push j
+        true
+      func_false = (v, i, j ) ->
+        i_s.push j
+        false
+        
+      surgeon([0,2,4,6]).describe_slice [func_true, func_false]
+      assert.deepEqual i_s, [0,1,0,1,0,1]
+
   describe ".replace", () ->
     
     it "replaces elements", () ->
