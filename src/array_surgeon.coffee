@@ -22,12 +22,12 @@ class Surgeon
       slice_end = finders.length + i
       slice = arr.slice(i, slice_end)
       is_seq = false
-      break if slice.length < finders.length
+      break if slice.length != finders.length
       if slice.length == finders.length
         for f, fi in finders
           ele = slice[fi]
           is_seq = if typeof(f) is 'function'
-            f(ele, i)
+            f(ele, i+fi)
           else
             ele is f
           break if !is_seq

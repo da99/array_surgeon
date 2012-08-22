@@ -47,6 +47,18 @@ describe "array_surgeon", () ->
       surgeon([0,2,4,6]).describe_slice [func]
       assert.deepEqual i_s, [0,1,2,3]
       
+    it "passes index in correct correlation to slice <-> sequence", () ->
+      i_s = []
+      func_true = (v, i) ->
+        i_s.push i
+        true
+      func_false = (v, i) ->
+        i_s.push i
+        false
+        
+      surgeon([0,2,4,6]).describe_slice [func_true, func_false]
+      assert.deepEqual i_s, [0,1,1,2,2,3]
+
   describe ".replace", () ->
     
     it "replaces elements", () ->
