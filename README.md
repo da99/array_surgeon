@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/da99/array_surgeon.png)](http://travis-ci.org/da99/array_surgeon)
 
 array\_surgeon
 =============
