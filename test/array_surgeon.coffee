@@ -106,13 +106,6 @@ describe "array_surgeon", () ->
       results = surgeon([ 1, 2, 3, 4 ]).replace [is_2, is_3], "missing"
       assert.deepEqual results, [ 1, "missing",  4 ]
 
-    it "replaces elements with return of callback", () ->
-
-      results = surgeon([ 1, 2, 3, 4 ]).replace [ is_2, is_3 ], (slice, props) ->
-        slice.join(",")
-        
-      assert.deepEqual results, [ 1, "2,3",  4 ]
-      
     it "passes index of element to finder function", () ->
       i_s = []
       func = (v, i) ->

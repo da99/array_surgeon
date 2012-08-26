@@ -22,14 +22,14 @@ Installation & Usage
 
     surgeon = require 'array_surgeon'
 
-    hay = [ 1, 2, 3, 4 ]
+    hay = [ 1, 2, 3, 4, 5, 6 ]
     
     // You can use a regular array
-    surgeon(hay).remove [ 2, 3 ]
-    # ==> [ 1, 4 ]
+    surgeon(hay).remove [ 2, 5 ]
+    # ==> [ 1, 6 ]
    
-    surgeon(hay).replace [ 2, 3 ], "missing"
-    # ==> [ 1, "missing", 4 ]
+    surgeon(hay).replace [ 2, 5 ], "two", "->", "five"
+    # ==> [ 1, "two", "->", "five", 6 ]
 
 You also get `remove_all` and `replace_all`:
 

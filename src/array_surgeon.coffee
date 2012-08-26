@@ -73,17 +73,8 @@ class Surgeon
       meta = module.exports(arr).describe_slice(finders, i)
       break unless meta
       i = meta.end_index - 1
-      splice_args = [ meta.start_index, meta.length ]
+      splice_args = [ meta.start_index, meta.length ].concat(replaces)
       
-      if replaces.length is 1
-        replace = replaces[0]
-        if typeof(replace) is 'function'
-          splice_args.push replace(meta.slice) 
-        else if typeof(replace) != 'undefined'
-          splice_args.push replace
-      else
-        splice_args = splice_args.concat replaces
-        
       arr.splice splice_args...
       l = arr.length
       break
