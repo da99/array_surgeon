@@ -84,6 +84,7 @@ You can also get info on the first slice that matches your slice:
       end_index:   3, 
       length:      2,
       slice:       [2, 3]
+      indexs:      [1, 2]
     }
    
   

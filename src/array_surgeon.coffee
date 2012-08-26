@@ -38,6 +38,7 @@ class Surgeon
         final.end_index   = slice_end
         final.length      = slice.length
         final.slice       = slice
+        final.indexs      = _.range( i, slice_end )
         break
 
     return null if final.length is 0

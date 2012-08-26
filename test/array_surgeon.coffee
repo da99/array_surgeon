@@ -15,6 +15,7 @@ assert_obj_equal = (a, b) =>
 describe "array_surgeon", () ->
 
   describe ".describe_slice", () ->
+    
     it "returns null if slice is not found", () ->
       results = surgeon([ 1, 3, 3, 4 ]).describe_slice [is_2, is_3]
       assert.equal results, null
@@ -22,12 +23,19 @@ describe "array_surgeon", () ->
     it "returns an object describing the slice", () ->
       results = surgeon([1,2,3,4]).describe_slice [is_2, is_3]
 
-      assert_obj_equal results, {
-        slice: [2,3],
+      target = {
+        slice:       [2,3]
         start_index: 1
-        end_index: 3
-        length: 2
+        end_index:   3
+        length:      2
+        indexs:      [1, 2]
       }
+      
+      target_keys = (k for k, v of target).sort()
+      keys        = (k for k, v of results).sort()
+      
+      assert_obj_equal results, target
+      assert.deepEqual keys, target_keys
 
     it "starts search based on given offset", () ->
       results = surgeon([1,2,3,4,1,2,3,4]).describe_slice [is_2, is_3], 4
@@ -37,6 +45,7 @@ describe "array_surgeon", () ->
         end_index:   7,
         length:      2,
         slice:       [2,3]
+        indexs:      [5, 6]
       }
      
     it "passes index in correct correlation to slice <-> sequence", () ->
