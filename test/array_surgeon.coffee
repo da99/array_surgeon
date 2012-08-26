@@ -70,6 +70,11 @@ describe "array_surgeon", () ->
       results = surgeon(hay).replace_all [ is_2, is_3 ], "missing"
       assert.deepEqual results, [ 1, "missing", 4, 1, "missing", 4 ]
     
+    it "replaces values in array with new ones: .replace_all( [..], arg2, arg3, arg4 )", () ->
+      hay = [ 1, 2, 3, 4, 1, 2, 3, 4 ]
+      results = surgeon(hay).replace_all [ is_2, is_3 ], "two", "three"
+      assert.deepEqual results, [ 1, "two", "three", 4, 1, "two", "three", 4 ]
+    
   describe ".replace", () ->
     
     it "replaces elements", () ->
@@ -82,6 +87,11 @@ describe "array_surgeon", () ->
       results = surgeon(hay).replace [ is_2, is_3 ], "missing"
       assert.deepEqual results, [ 1, "missing", 4, 1, 2, 3, 4 ]
     
+    it "replaces values in array with new ones: .replace( [..], arg2, arg3, arg4 )", () ->
+      hay = [ 1, 2, 3, 4 ]
+      results = surgeon(hay).replace [ is_2, is_3 ], "two", "three"
+      assert.deepEqual results, [ 1, "two", "three", 4 ]
+
     it "replaces elements using functions for comparison", () ->
 
       results = surgeon([ 1, 2, 3, 4 ]).replace [is_2, is_3], "missing"
