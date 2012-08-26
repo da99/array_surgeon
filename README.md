@@ -4,6 +4,16 @@ array\_surgeon
 
 Find a consecutive group of elements in an array and remove or replace them.
 
+Similar, but different to: array\_pinch
+===============================
+
+The npm package, [array\_pinch](https://npmjs.org/package/array_pinch), 
+lets you define only the start and end points of the sequence:
+
+    pinch = require "pinch"
+    arr = [1,2,3,4,5,6]
+    pinch(arr).remove [2,5]
+    # ===> [ 1, 6 ]
 
 Installation & Usage
 ====
