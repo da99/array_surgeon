@@ -44,7 +44,7 @@ class Surgeon
     final
 
   alter_all: (meth, args...) ->
-    new_arr = @hay.slice(0)
+    new_arr = @hay
     alter = () ->
       new_arr = module.exports(new_arr)[meth](args...)
       new_arr
