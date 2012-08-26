@@ -21,6 +21,17 @@ Installation & Usage
     surgeon(hay).replace [ 2, 3 ], "missing"
     # ==> [ 1, "missing", 4 ]
 
+You also get `remove_all` and `replace_all`:
+
+    hay = [ 1, 2, 3, 4, 1, 2, 3, 4 ]
+    
+    surgeon(hay).remove_all [ 2, 3 ]
+    # ==> [ 1, 4, 1, 4 ]
+   
+    surgeon(hay).replace_all [ 2, 3 ], "missing"
+    # ==> [ 1, "missing", 4, 1, "missing", 4 ]
+    
+
 
 Using Functions for Comparison
 ==============================

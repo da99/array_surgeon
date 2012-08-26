@@ -43,9 +43,24 @@ class Surgeon
     return null if final.length is 0
     final
 
+  alter_all: (meth, args...) ->
+    new_arr = @hay.slice(0)
+    alter = () ->
+      new_arr = module.exports(new_arr)[meth](args...)
+      new_arr
+    while !_.isEqual(new_arr, alter() )
+      new_arr
+    new_arr
+    
+  replace_all: (args...) ->
+    @alter_all('replace', args...)
+    
+  remove_all: (args...) ->
+    @alter_all('remove', args...)
+
   remove: (args...) ->
     @replace args...
-    
+
   replace: (finders, replace) ->
     return @hay if @hay.length < finders.length
     arr = @hay.slice(0)
@@ -66,6 +81,7 @@ class Surgeon
         
       arr.splice splice_args...
       l = arr.length
+      break
 
     arr
 

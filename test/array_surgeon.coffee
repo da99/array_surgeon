@@ -63,12 +63,24 @@ describe "array_surgeon", () ->
       surgeon([0,2,4,6]).describe_slice [func_true, func_false]
       assert.deepEqual i_s, [0,1,0,1,0,1]
 
+  describe ".replace_all", () ->
+    
+    it "replaces all sequences", () ->
+      hay = [ 1, 2, 3, 4, 1, 2, 3, 4 ]
+      results = surgeon(hay).replace_all [ is_2, is_3 ], "missing"
+      assert.deepEqual results, [ 1, "missing", 4, 1, "missing", 4 ]
+    
   describe ".replace", () ->
     
     it "replaces elements", () ->
 
       results = surgeon([ 1, 2, 3, 4 ]).replace [ 2, 3 ], "missing"
       assert.deepEqual results, [ 1, "missing",  4 ]
+
+    it "replaces only one sequence", () ->
+      hay = [ 1, 2, 3, 4, 1, 2, 3, 4 ]
+      results = surgeon(hay).replace [ is_2, is_3 ], "missing"
+      assert.deepEqual results, [ 1, "missing", 4, 1, 2, 3, 4 ]
     
     it "replaces elements using functions for comparison", () ->
 
@@ -97,6 +109,12 @@ describe "array_surgeon", () ->
         
       assert.deepEqual orig, target
       
+  describe ".remove_all", () ->
+    
+    it "removes all sequences", () ->
+      hay = [ 1, 2, 3, 4, 1, 2, 3, 4 ]
+      results = surgeon(hay).remove_all [ is_2, is_3 ]
+      assert.deepEqual results, [ 1, 4, 1, 4 ]
 
   describe ".remove", () ->
     
@@ -105,10 +123,10 @@ describe "array_surgeon", () ->
       results = surgeon([ 1, 2, 3, 4 ]).remove [ is_2, is_3 ]
       assert.deepEqual results, [ 1,  4 ]
 
-    it "removes multiple sequences", () ->
+    it "removes only one sequence", () ->
       hay = [ 1, 2, 3, 4, 1, 2, 3, 4 ]
       results = surgeon(hay).remove [ is_2, is_3 ]
-      assert.deepEqual results, [ 1,  4, 1, 4 ]
+      assert.deepEqual results, [ 1, 4, 1, 2, 3, 4 ]
      
     it "passes index of element to finder function", () ->
       i_s = []
