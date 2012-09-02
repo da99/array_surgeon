@@ -71,6 +71,17 @@ Example:
       console.log "Checking #{val} at position #{arr_i} with finder at #{finder_i}"
       val is 2
 
+Splats
+======
+
+    is_4_to_6 = (v) ->
+      v in [4, 5, 6]
+      
+    is_four_to_five.is_splat = true
+
+    surgeon( [1, 2, 3, 4, 5, 6, 7] ).replace [ is_3, is_four_to_five ], "taken"
+    # ==> [ 1, 2, "taken", 7]
+      
 
 Get Info on a Slice
 ================
@@ -80,11 +91,35 @@ You can also get info on the first slice that matches your slice:
     
     # ==> 
     { 
-      start_index: 1, 
-      end_index:   3, 
-      length:      2,
+      start_index: 1
+      end_index:   3
+      length:      2
       slice:       [2, 3]
       indexs:      [1, 2]
     }
    
+When using splats: 
+
+    finders = [ is_3, is_4_to_6 ]
+    hay     = [ 1, 2, 3, 4, 5, 6, 7]
+    # ==>
+    {
+      start_index: 2
+      end_index:   6
+      length:      4
+      slice:       [3, [4, 5, 6]]
+      indexs:      [2, 3, 4, 5]
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   

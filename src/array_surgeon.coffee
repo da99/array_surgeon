@@ -14,31 +14,60 @@ class Surgeon
       length: 0
     
     offset ?= 0
-    i = (offset - 1)
-    while i < arr.length
-      i += 1
+    current_i = (offset - 1)
+    
+    while current_i < arr.length
+      current_i += 1
+      i = current_i
 
-      # Get a slice and run it through the finders.
-      slice_end = finders.length + i
-      slice = arr.slice(i, slice_end)
-      is_seq = false
-      break if slice.length != finders.length
-      if slice.length == finders.length
-        for f, fi in finders
-          ele = slice[fi]
-          is_seq = if typeof(f) is 'function'
-            f ele, i+fi, fi
+      slice_start = i
+      slice_end   = i
+      finders_match = false
+      slice       = []
+      
+
+      for f, fi in finders
+        break if (i + fi) >= arr.length
+          
+        ele = arr[i + fi]
+
+        # If splat, loop until finder no longer matches element sequence
+        if typeof(f) is 'function' and f.is_splat
+          
+          # We loop and gather each element for the splat.
+          ele_arr = []
+          orig_i = i
+          while (i + fi < arr.length) and f(ele, i + fi, fi)
+            ele_arr.push ele
+            i += 1
+            ele = arr[i + fi]
+            
+          finders_match = not _.isEmpty( ele_arr )
+          if finders_match 
+            i = orig_i + (ele_arr.length - fi)
+            slice_end += ele_arr.length
+            slice.push ele_arr
+          
+        else # match element to finder
+          
+          finders_match = if typeof(f) is 'function'
+            f ele, i + fi, fi
           else
             ele is f
-          break if !is_seq
-
+            
+          if finders_match
+            slice.push(ele)
+            slice_end += 1
+            
+        break if not finders_match
+          
       # If slice matches the finders:
-      if is_seq
-        final.start_index = i
+      if finders_match
+        final.start_index = slice_start
         final.end_index   = slice_end
-        final.length      = slice.length
+        final.length      = slice_end - slice_start
         final.slice       = slice
-        final.indexs      = _.range( i, slice_end )
+        final.indexs      = _.range( slice_start, slice_end )
         break
 
     return null if final.length is 0
