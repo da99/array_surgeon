@@ -27,6 +27,9 @@ describe "array_surgeon", () ->
       results = surgeon([ 1, 3, 3, 4 ]).describe_slice [is_2, is_3]
       assert.equal results, null
 
+    it "returns null if array is empty", () ->
+      assert.equal surgeon([]).describe_slice([is_2]), null
+
     it "returns an object describing the slice", () ->
       results = surgeon([1,2,3,4]).describe_slice [is_2, is_3]
 

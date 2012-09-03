@@ -9,6 +9,9 @@ class Surgeon
     @hay = hay
     
   describe_slice:  (finders, offset) ->
+    
+    return null if @hay.length is 0 
+    
     list = new humane_list(@hay)
     final = 
       start_index: null
