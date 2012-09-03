@@ -82,6 +82,15 @@ describe "array_surgeon", () ->
       surgeon([0,2,4,6]).describe_slice [func_true, func_false]
       assert.deepEqual i_s, [0,1,0,1,0,1,0]
 
+    it "does not select partial match if any following finders are false", () ->
+      results = surgeon([0,2,4]).describe_slice [is_false, is_false, is_true]
+      assert.equal results, null
+      results = surgeon([0,2,4]).describe_slice [is_true, is_false, is_false]
+      assert.equal results, null
+      results = surgeon([0,2,4]).describe_slice [is_true, is_false, is_true]
+      assert.equal results, null
+
+
     it "groups splat items as one array", () ->
       is_4_to_6 = (v) ->
         v in [4, 5, 6]

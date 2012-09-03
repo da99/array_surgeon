@@ -71,6 +71,7 @@ class Surgeon
               
           if move_backward
             list.backward()
+          break if not finders_match
           
         else # match element to finder
           
@@ -79,15 +80,15 @@ class Surgeon
           else
             list.value() is f
             
-          if finders_match
-            slice.push(list.value())
+          break if not finders_match
+          slice.push(list.value())
             
-        break if not finders_match
+        if list.is_at_end() and (fi isnt finders.length - 1)
+          finders_match = false
         break if list.is_at_end()
         list.forward()
           
       # If slice matches the finders:
-      
       if finders_match
         final.start_index = orig_pos - 1
         final.end_index   = final.start_index + slice.length()
