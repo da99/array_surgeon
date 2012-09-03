@@ -3,6 +3,35 @@
 _ = require "underscore"
 humane_list = require "humane_list"
 
+class Slice
+  constructor: () ->
+    @vals = []
+    @new_sub = true
+    @_length = 0
+
+  length: () ->
+    @_length
+
+  plus_length: () ->
+    @_length += 1
+    
+  push: (val) ->
+    @new_sub = true
+    @vals.push val
+    @plus_length()
+    val
+
+  sub_push: (val) ->
+    if @new_sub
+      @vals.push([])
+      @new_sub = false
+
+    _.last(@vals).push val
+    @plus_length()
+    val
+
+  values: () ->
+    @vals
 
 class Surgeon
   constructor: (hay) ->
@@ -23,30 +52,23 @@ class Surgeon
       
       orig_pos      = list.position() 
       finders_match = false
-      slice       = []
+      slice       = new Slice()
       slice_end   = orig_pos - 1
-      length      = 0
       
       for f, fi in finders
           
         # If splat, loop until finder no longer matches element sequence
         if typeof(f) is 'function' and f.is_splat
           # We loop and gather each element for the splat.
-          ele_arr       = []
           move_backward = false
           
           while f( list.value(), list.position() - 1, fi)
-              ele_arr.push list.value()
+              finders_match = true
+              slice.sub_push list.value()
               break if list.is_at_end()
-              list.forward() 
+              list.forward()
               move_backward = true
               
-          finders_match = not _.isEmpty( ele_arr )
-          
-          if finders_match
-            length += ele_arr.length
-            slice.push ele_arr
-            
           if move_backward
             list.backward()
           
@@ -58,7 +80,6 @@ class Surgeon
             list.value() is f
             
           if finders_match
-            length += 1
             slice.push(list.value())
             
         break if not finders_match
@@ -69,9 +90,9 @@ class Surgeon
       
       if finders_match
         final.start_index = orig_pos - 1
-        final.end_index   = final.start_index + length
-        final.length      = length
-        final.slice       = slice
+        final.end_index   = final.start_index + slice.length()
+        final.length      = slice.length()
+        final.slice       = slice.values()
         final.indexs      = _.range( final.start_index, final.end_index )
         break
       else
