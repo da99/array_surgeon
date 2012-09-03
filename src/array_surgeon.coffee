@@ -1,7 +1,9 @@
 
 
 _ = require "underscore"
-  
+humane_list = require "humane_list"
+
+
 class Surgeon
   constructor: (hay) ->
     @hay = hay
@@ -25,7 +27,6 @@ class Surgeon
       finders_match = false
       slice       = []
       
-
       for f, fi in finders
         break if (i + fi) >= arr.length
           
@@ -44,7 +45,7 @@ class Surgeon
             
           finders_match = not _.isEmpty( ele_arr )
           if finders_match 
-            i = orig_i + (ele_arr.length - fi)
+            i = orig_i + ele_arr.length  - 1
             slice_end += ele_arr.length
             slice.push ele_arr
           

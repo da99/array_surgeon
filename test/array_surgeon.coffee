@@ -2,6 +2,7 @@
 path = require "path"
 assert = require 'assert'
 surgeon = require "array_surgeon"
+_ = require "underscore"
 
 is_2 = (val) ->
   val is 2
@@ -83,17 +84,20 @@ describe "array_surgeon", () ->
         v in [4, 5, 6]
       is_4_to_6.is_splat = true
 
-      is_8_to_10 = (v) ->
-        v in [8,9,10]
-      is_8_to_10.is_splat = true
+      is_8_to_9 = (v) ->
+        v in [8,9]
+      is_8_to_9.is_splat = true
+
+      is_10 = (v) ->
+        v is 10
         
-      desc = surgeon([1,2,3,4,5,6,7,8,9,10,11]).describe_slice [is_3, is_4_to_6, is_7, is_8_to_10]
+      desc = surgeon(_.range(1,12)).describe_slice [is_3, is_4_to_6, is_7, is_8_to_9, is_10]
       target =
         start_index: 2
         end_index:   10
         length:      8
-        slice:       [3, [4, 5, 6], 7, [8,9,10]]
-        indexs:      [2,  3, 4, 5,  6,  7,8,9  ]
+        slice:       [3, [4, 5, 6], 7, [8,9], 10]
+        indexs:      [2,  3, 4, 5,  6,  7,8,  9  ]
 
       assert.deepEqual desc, target
 
