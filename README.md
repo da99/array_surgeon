@@ -77,9 +77,9 @@ Splats
     is_4_to_6 = (v) ->
       v in [4, 5, 6]
       
-    is_four_to_five.is_splat = true
+    is_4_to_6.is_splat = true
 
-    surgeon( [1, 2, 3, 4, 5, 6, 7] ).replace [ is_3, is_four_to_five ], "taken"
+    surgeon( [1, 2, 3, 4, 5, 6, 7] ).replace [ is_3, is_4_to_6 ], "taken"
     # ==> [ 1, 2, "taken", 7]
       
 
