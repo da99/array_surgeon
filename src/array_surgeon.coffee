@@ -9,67 +9,73 @@ class Surgeon
     @hay = hay
     
   describe_slice:  (finders, offset) ->
-    arr = @hay
+    list = new humane_list(@hay)
     final = 
       start_index: null
-      end_index: null
-      length: 0
+      end_index:   null
+      length:      0
     
-    offset ?= 0
-    current_i = (offset - 1)
-    
-    while current_i < arr.length
-      current_i += 1
-      i = current_i
-
-      slice_start = i
-      slice_end   = i
+    list.to( (offset || 0 ) + 1 )
+    loop
+      
+      orig_pos      = list.position() 
       finders_match = false
       slice       = []
+      slice_end   = orig_pos - 1
+      length      = 0
       
       for f, fi in finders
-        break if (i + fi) >= arr.length
           
-        ele = arr[i + fi]
-
         # If splat, loop until finder no longer matches element sequence
         if typeof(f) is 'function' and f.is_splat
-          
           # We loop and gather each element for the splat.
-          ele_arr = []
-          orig_i = i
-          while (i + fi < arr.length) and f(ele, i + fi, fi)
-            ele_arr.push ele
-            i += 1
-            ele = arr[i + fi]
-            
+          ele_arr       = []
+          move_backward = false
+          
+          while f( list.value(), list.position() - 1, fi)
+              ele_arr.push list.value()
+              break if list.is_at_end()
+              list.forward() 
+              move_backward = true
+              
           finders_match = not _.isEmpty( ele_arr )
-          if finders_match 
-            i = orig_i + ele_arr.length  - 1
-            slice_end += ele_arr.length
+          
+          if finders_match
+            length += ele_arr.length
             slice.push ele_arr
+            
+          if move_backward
+            list.backward()
           
         else # match element to finder
           
           finders_match = if typeof(f) is 'function'
-            f ele, i + fi, fi
+            f list.value(), list.position() - 1, fi
           else
-            ele is f
+            list.value() is f
             
           if finders_match
-            slice.push(ele)
-            slice_end += 1
+            length += 1
+            slice.push(list.value())
             
         break if not finders_match
+        break if list.is_at_end()
+        list.forward()
           
       # If slice matches the finders:
+      
       if finders_match
-        final.start_index = slice_start
-        final.end_index   = slice_end
-        final.length      = slice_end - slice_start
+        final.start_index = orig_pos - 1
+        final.end_index   = final.start_index + length
+        final.length      = length
         final.slice       = slice
-        final.indexs      = _.range( slice_start, slice_end )
+        final.indexs      = _.range( final.start_index, final.end_index )
         break
+      else
+        list.to( orig_pos )
+
+      break if list.is_at_end()
+      list.forward() 
 
     return null if final.length is 0
     final

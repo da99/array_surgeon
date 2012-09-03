@@ -31,10 +31,10 @@ describe "array_surgeon", () ->
       results = surgeon([1,2,3,4]).describe_slice [is_2, is_3]
 
       target = {
-        slice:       [2,3]
         start_index: 1
         end_index:   3
         length:      2
+        slice:       [2,3]
         indexs:      [1, 2]
       }
       
