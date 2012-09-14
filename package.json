@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "underscore": "*",
-    "humane_list": ">=0.3.1"
+    "humane_list": ">1.0.0"
   },
   "repository": {
     "type": "git",

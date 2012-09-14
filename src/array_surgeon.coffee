@@ -41,7 +41,7 @@ class Surgeon
     
     return null if @hay.length is 0 
     
-    list = new humane_list(@hay)
+    list = (new humane_list @hay ).position()
     final = 
       start_index: null
       end_index:   null
@@ -65,12 +65,12 @@ class Surgeon
           while f( list.value(), list.position() - 1, fi)
               finders_match = true
               slice.sub_push list.value()
-              break if list.is_at_end()
-              list.forward()
+              break if list.is_at_bottom()
+              list.downward()
               move_backward = true
               
           if move_backward
-            list.backward()
+            list.upward()
           break if not finders_match
           
         else # match element to finder
@@ -83,10 +83,10 @@ class Surgeon
           break if not finders_match
           slice.push(list.value())
             
-        if list.is_at_end() and (fi isnt finders.length - 1)
+        if list.is_at_bottom() and (fi isnt finders.length - 1)
           finders_match = false
-        break if list.is_at_end()
-        list.forward()
+        break if list.is_at_bottom()
+        list.downward()
           
       # If slice matches the finders:
       if finders_match
@@ -99,8 +99,8 @@ class Surgeon
       else
         list.to( orig_pos )
 
-      break if list.is_at_end()
-      list.forward() 
+      break if list.is_at_bottom()
+      list.downward() 
 
     return null if final.length is 0
     final
